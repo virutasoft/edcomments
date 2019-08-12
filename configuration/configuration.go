@@ -11,8 +11,8 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-//Configuration crea la estructura para la conexion
-type Configuration struct {
+//configuration crea la estructura para la conexion
+type configuration struct {
 	Server   string
 	Port     string
 	User     string
@@ -20,9 +20,9 @@ type Configuration struct {
 	Database string
 }
 
-//GetConfiguration obtiene los datos para configurar la url
-func GetConfiguration() Configuration {
-	var c Configuration
+//getConfiguration obtiene los datos para configurar la url
+func getConfiguration() configuration {
+	var c configuration
 	file, err := os.Open("./config.json")
 	if err != nil {
 		log.Fatal(err)
@@ -35,9 +35,9 @@ func GetConfiguration() Configuration {
 	return c
 }
 
-//GetConnection permite crear una conexion a nuestra db
+//GetConnection permite obtener una conexion a nuestra db
 func GetConnection() *gorm.DB {
-	c := GetConfiguration()
+	c := getConfiguration()
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", c.User, c.Password, c.Server, c.Port, c.Database)
 	db, err := gorm.Open("mysql", dsn)
 	if err != nil {

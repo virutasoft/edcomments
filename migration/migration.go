@@ -5,7 +5,7 @@ import (
 	"github.com/golang-es/edcomments/models"
 )
 
-//Migrate sirve para conectar a la base de datos
+//Migrate permite crear las tablas en la BD
 func Migrate() {
 	db := configuration.GetConnection()
 	defer db.Close()
